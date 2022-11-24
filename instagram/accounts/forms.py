@@ -27,19 +27,16 @@ class CustomUserCreationForm(forms.ModelForm):
     
 
 class LoginForm(forms.Form):
-    email = forms.CharField(required=True, label='Логин')
+    email = forms.Field(required=True, label='Email')
     password = forms.CharField(required=True, label='Пароль', widget=forms.PasswordInput)
     
-    def clean_email(self):
-        email = self.cleaned_data['email']
+    def clean(self):
+        cleaned_data = super(LoginForm, self).clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
         if not get_user_model().objects.filter(email=email).exists():
-            raise forms.ValidationError('Пользователь с таким логином не зарегистрирован!')
-        return email
-        
-    def clean_password(self):   
-        email = self.cleaned_data['email']
+            raise forms.ValidationError('Пользователь с такой почтой не зарегистрирован!')
         user = get_user_model().objects.get(email=email)
-        password = self.cleaned_data['password']
         if user and not user.check_password(password):
-            raise forms.ValidationError('Неверный пароль!')
-        return password
+                raise forms.ValidationError('Неверный пароль!')
+        return cleaned_data
