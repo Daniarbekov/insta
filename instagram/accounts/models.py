@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Profile(AbstractUser):
-    email = models.EmailField(verbose_name='Электронная почта', unique=True, blank=True)
+    email = models.EmailField(verbose_name='Электронная почта', unique=True)
     avatar = models.ImageField(
         null=True,
         blank=True,
