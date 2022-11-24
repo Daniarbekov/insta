@@ -1,5 +1,5 @@
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.views.generic import CreateView, TemplateView
 from .forms import CustomUserCreationForm, LoginForm
@@ -41,3 +41,8 @@ class LoginView(TemplateView):
         else:
             form = LoginForm(request.POST)
         return self.render_to_response(context={'form':form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
