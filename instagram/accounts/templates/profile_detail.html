@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+
+{% block content%}
+<header>
+	<div class="container">
+		<div class="profile">
+			<div class="profile-image">
+				<img src="{{ user_obj.avatar.url }}" alt="img">
+			</div>
+            <div class="profile-box">
+			<div class="profile-user-settings">
+				<h2 class="profile-user-name">{{ user_obj.username }}</h2>
+				<button class="btn profile-edit-btn">Edit Profile</button>
+			</div>
+			<div class="profile-stats">
+				<ul>
+					<li><span class="profile-stat-count">164</span> posts</li>
+					<li><span class="profile-stat-count">188</span> followers</li>
+					<li><span class="profile-stat-count">206</span> following</li>
+				</ul>
+			</div>
+            <div class="profile-bio">
+				<p><span class="profile-real-name">{{ user_obj.first_name }} {{ user_obj.last_name}}</span> <br> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+			</div>
+        </div>
+			
+		</div>
+	</div>
+</header>
+<hr>
+		<div class="gallery">
+            {% for post in user_obj.posts.all%}
+			<div class="gallery-item" tabindex="0">
+				<img src="{{ post.image.url }}" class="gallery-image" alt="">
+				<div class="gallery-item-info">
+					<ul>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> </li>
+						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> </li>
+					</ul>
+				</div>
+			</div>
+            {% empty %}
+                <h1>Список публикаций пуст</h1>
+            {% endfor %}
+		</div>
+        
+        
+        {% endblock%}
+
