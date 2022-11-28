@@ -1,3 +1,11 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView, ListView, CreateView
+from posts.models import Post
+from django import forms
 
-# Create your views here.
+
+class IndexView(ListView):
+    template_name = 'index.html'
+    model = Post
+    context_object_name = 'posts'
+
