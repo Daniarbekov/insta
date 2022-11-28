@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 
-
 {% block content%}
 <header>
 	<div class="container">
 		<div class="profile">
 			<div class="profile-image">
-				<img src="{{ user_obj.avatar.url }}" alt="img">
+				{% if user_obj.profile.avatar.url%}
+					<img src="{{ user_obj.avatar.url }}" alt="img">
+				{% endif %}
 			</div>
             <div class="profile-box">
 			<div class="profile-user-settings">
@@ -30,16 +31,24 @@
 	</div>
 </header>
 <hr>
-		<div class="gallery">
+<button type="button" class="btn btn-primary post-create-btn" data-bs-toggle="modal" data-bs-target="#post-create-form">+</button>
+{% include 'post_form.html' %}
+<div class="card-group">
+	<div class="row row-cols-3 row-cols-md-3 g-4">
             {% for post in user_obj.posts.all%}
-			<div class="gallery-item" tabindex="0">
-				<img src="{{ post.image.url }}" class="gallery-image" alt="">
-				<div class="gallery-item-info">
-					<ul>
-						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> </li>
-						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> </li>
-					</ul>
+			<div class="col">
+			<div class="card">
+				<img src="{{ post.image.url }}" class="card-img-top" alt="...">
+				<div class="card-body">
+				  <h5 class="card-title">Card title</h5>
+				  <p class="card-text">{{post.description}}</p>
+				  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
 				</div>
+				<ul>
+				  <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> </li>
+				  <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> </li>
+			  </ul>
+			  </div>
 			</div>
             {% empty %}
                 <h1>Список публикаций пуст</h1>
@@ -47,5 +56,4 @@
 		</div>
         
         
-        {% endblock%}
-
+{% endblock%}

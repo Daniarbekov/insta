@@ -1,0 +1,28 @@
+{% load static %}
+<div class="modal fade" id="post-create-form" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Публикация</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="post-submit" action="{% url 'posts-list'%}" method='POST' enctype='multipart/form-data',>
+                {%csrf_token%}
+                <label class="form-label" for="id_image">Фото</label>
+                <input type="file" name="image" accept="image/*" class="form-control" required id="id_image">
+                <label class="form-label" for="id_description">Описание</label>
+                <input type="text" name="description" maxlength="200" class="form-control" placeholder="Описание" required id="id_description">
+                <br>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <input type="submit" class="btn btn-primary " id='post-create' value='Опубликовать'>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="{% static 'js/main.js'%}""></script>
+
