@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from accounts.managers import UserManager
 
 
 class Profile(AbstractUser):
@@ -23,6 +23,8 @@ class Profile(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    objects = UserManager()
+    
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
